@@ -34,7 +34,7 @@ const color = computed(() => {
 </script>
 
 <template>
-  <div
+  <div data-test="tile"
     text-dark-50
     rounded
     flex place-items-center place-content-center
