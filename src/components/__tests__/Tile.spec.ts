@@ -1,4 +1,4 @@
-import { it, describe, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Tile from '~/components/Tile.vue'
 
@@ -8,8 +8,8 @@ describe('Tile tests', () => {
       props: {
         value: 2,
       },
-    });
-    const div = wrapper.get('[data-test="tile"]').element;
-    expect((div as HTMLDivElement).style.backgroundColor).toEqual("rgb(241, 101, 40)");
+    })
+    const div = wrapper.get('[data-test="tile"]').element
+    expect((div as HTMLDivElement).style.backgroundColor).toEqual('rgb(241, 101, 40)')
   })
 })
