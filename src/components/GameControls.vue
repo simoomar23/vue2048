@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useGameStore } from '~/stores/game'
 
-const game = useGameStore()
+const props = defineProps<{score:number}>();
 
-const score = useTransition(computed(() => game.localGame.score), {
-  duration: 100,
-})
+const game = useGameStore()
 </script>
 
 <template>
