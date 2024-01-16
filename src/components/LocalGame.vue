@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { SwipeDirection } from '@vueuse/core'
 import Scrim from './Scrim.vue'
 import { useGameStore } from '~/stores/game'
 import { useFireworks } from '~/composables/useConfetti'
@@ -24,16 +23,16 @@ const game = useGameStore()
 const showWonState = ref(false)
 
 watch(direction, () => {
-  if (direction.value === SwipeDirection.UP)
+  if (direction.value === "up")
     game.localGame.up()
 
-  if (direction.value === SwipeDirection.DOWN)
+  if (direction.value === "down")
     game.localGame.down()
 
-  if (direction.value === SwipeDirection.LEFT)
+  if (direction.value === "left")
     game.localGame.left()
 
-  if (direction.value === SwipeDirection.RIGHT)
+  if (direction.value === "right")
     game.localGame.right()
 })
 
