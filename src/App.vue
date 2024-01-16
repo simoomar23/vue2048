@@ -35,4 +35,3 @@ if (gameId)
     </div>
   </main>
 </template>
-

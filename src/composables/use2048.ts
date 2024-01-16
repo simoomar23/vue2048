@@ -12,7 +12,7 @@ export interface Use2048Options {
   seed?: number
 }
 
-export const directionToRotation = (direction: Direction) => {
+export function directionToRotation(direction: Direction) {
   switch (direction) {
     case 'up':
       return 0
@@ -110,7 +110,7 @@ export function use2048() {
   }
 
   const move = (direction: Direction) => {
-    let _board = deepClone(board.value)
+    let _board = deepClone(board.value) as any[][]
 
     const [startRow, endRow, rowStep] = direction === 'down'
       ? [0, rows.value, 1]
@@ -143,7 +143,9 @@ export function use2048() {
 
             return
           }
-          else if (_board[row - i][col] !== null) { return }
+          else if (_board[row - i][col] !== null) {
+            return
+          }
 
           merge(i + 1)
         }

@@ -23,16 +23,16 @@ const game = useGameStore()
 const showWonState = ref(false)
 
 watch(direction, () => {
-  if (direction.value === "up")
+  if (direction.value === 'up')
     game.localGame.up()
 
-  if (direction.value === "down")
+  if (direction.value === 'down')
     game.localGame.down()
 
-  if (direction.value === "left")
+  if (direction.value === 'left')
     game.localGame.left()
 
-  if (direction.value === "right")
+  if (direction.value === 'right')
     game.localGame.right()
 })
 
@@ -94,7 +94,7 @@ onKeyStroke(['ArrowRight', 'd'], () => {
 
 <template>
   <div>
-    <GameControls mb-2 :score="game.localGame.score"/>
+    <GameControls mb-2 :score="game.localGame.score" />
     <div relative>
       <Scrim :hide="!(game.localGame.isGameOver || game.remoteGame.hasWon)">
         <div text-5xl font-black>

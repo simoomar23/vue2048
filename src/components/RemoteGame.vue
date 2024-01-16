@@ -14,7 +14,7 @@ game.localGame.onWon(() => {
   showWonState.value = true
 })
 
-const selectText = () => {
+function selectText() {
   setTimeout(() => {
     if (input.value)
       input.value.select()

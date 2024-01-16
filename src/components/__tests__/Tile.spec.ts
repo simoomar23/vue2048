@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Tile from '~/components/Tile.vue'
 
-describe('Tile tests', () => {
+describe('tile tests', () => {
   it('should div background color be orange when value is 2', () => {
     const wrapper = mount(Tile, {
       props: {

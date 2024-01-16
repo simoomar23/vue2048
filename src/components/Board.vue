@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{ board: ([number, number] | null)[][]; score: number }>()
+const props = defineProps<{ board: ([number, number] | null)[][], score: number }>()
 const items = computed(() => {
   return props.board.flat()
 })

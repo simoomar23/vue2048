@@ -11,7 +11,6 @@ A clone of the popular [2048 Game](https://play2048.co/) written in Vue with sup
 
 [2048.wheatjs.me](https://2048.wheatjs.me)
 
-
 ## Development Setup
 
 - Install [Node.js](https://nodejs.org/en/) >=v16 and [pnpm](https://pnpm.io/)

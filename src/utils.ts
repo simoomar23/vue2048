@@ -55,7 +55,7 @@ export function isArrayEqual(array1: any[], array2: any[]) {
 
 export function deepClone(arr: any[]) {
   const len = arr.length
-  const newArr = new Array(len)
+  const newArr = Array.from({ length: len })
   for (let i = 0; i < len; i++) {
     if (Array.isArray(arr[i]))
       newArr[i] = deepClone(arr[i])

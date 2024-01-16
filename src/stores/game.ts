@@ -63,7 +63,7 @@ export const useGameStore = defineStore('game', () => {
 
   localGame.onMove((direction: Direction) => peer.sendMessage('move', { direction }))
 
-  peer.onMessage('new-game', ({ seed, silent }: { seed: number; silent: boolean }) => {
+  peer.onMessage('new-game', ({ seed, silent }: { seed: number, silent: boolean }) => {
     remoteGame.init(seed)
 
     if (!silent)

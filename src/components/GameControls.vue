@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGameStore } from '~/stores/game'
 
-const props = defineProps<{score:number}>();
+const props = defineProps<{ score: number }>()
 
 const game = useGameStore()
 </script>
@@ -9,7 +9,7 @@ const game = useGameStore()
 <template>
   <div flex max-w="600px" w-full mx-auto>
     <div text-left self-end>
-      <div lt-md:text-7xl text-8xl font-black font-mono text-light-800 leading-18>
+      <div lt-md:text-7xl text-8xl font-black font-mono text-light-800 leading-18></div>
         {{ score.toFixed(0) }}
       </div>
       <div text-3xl font-mono op50>

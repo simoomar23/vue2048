@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useGameStore } from '~/stores/game'
+
 const { copy } = useClipboard()
 
 const didCopy = ref(false)
 
 const game = useGameStore()
-const copyLink = () => {
+function copyLink() {
   copy(game.link)
     .then(() => {
       didCopy.value = true
