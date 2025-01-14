@@ -1,0 +1,17 @@
+{
+  "name": "Vue 2048 Devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "antfu.unocss",
+        "vitest.explorer",
+        "pflannery.vscode-versionlens",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install",
+  "forwardPorts": [5173]
+}
