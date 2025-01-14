@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useGameStore } from '~/stores/game'
 import CopyLink from './CopyLink.vue'
 import Scrim from './Scrim.vue'
-import { useGameStore } from '~/stores/game'
 
 const { play } = useFireworks()
 

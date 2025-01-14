@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import RemoteGameSmall from './components/RemoteGameSmall.vue'
 import { useGameStore } from '~/stores/game'
+import RemoteGameSmall from './components/RemoteGameSmall.vue'
 
 const game = useGameStore()
 

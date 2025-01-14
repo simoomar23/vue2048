@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Scrim from './Scrim.vue'
-import { useGameStore } from '~/stores/game'
 import { useFireworks } from '~/composables/useConfetti'
+import { useGameStore } from '~/stores/game'
+import Scrim from './Scrim.vue'
 
 const emit = defineEmits<{
   (e: 'up'): void

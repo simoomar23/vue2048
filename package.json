@@ -14,30 +14,30 @@
     "test-report": "vitest --reporter junit --outputFile ./report.xml"
   },
   "dependencies": {
-    "@formkit/auto-animate": "^1.0.0-beta.1",
-    "@types/canvas-confetti": "^1.6.4",
-    "@vueuse/core": "^10.7.2",
-    "canvas-confetti": "^1.9.2",
-    "peerjs": "^1.5.2",
-    "pinia": "^2.1.7",
-    "unocss": "^0.58.3",
-    "vue": "^3.4.14"
+    "@formkit/auto-animate": "1.0.0-beta.1",
+    "@types/canvas-confetti": "^1.9.0",
+    "@vueuse/core": "^12.4.0",
+    "canvas-confetti": "^1.9.3",
+    "peerjs": "^1.5.4",
+    "pinia": "^2.3.0",
+    "unocss": "^65.4.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.2",
-    "@iconify/json": "^2.2.169",
-    "@pinia/testing": "^0.1.3",
-    "@types/node": "^20.11.4",
-    "@unocss/reset": "^0.58.3",
-    "@vitejs/plugin-vue": "^5.0.3",
-    "@vue/test-utils": "^2.4.3",
-    "eslint": "^8.56.0",
-    "jsdom": "^23.2.0",
-    "typescript": "^5.3.3",
-    "unplugin-auto-import": "^0.17.3",
-    "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.0.11",
-    "vitest": "^1.2.0",
-    "vue-tsc": "^1.8.27"
+    "@antfu/eslint-config": "^3.14.0",
+    "@iconify/json": "^2.2.294",
+    "@pinia/testing": "^0.1.7",
+    "@types/node": "^22.10.6",
+    "@unocss/reset": "^65.4.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^9.18.0",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.7.3",
+    "unplugin-auto-import": "^19.0.0",
+    "unplugin-vue-components": "^28.0.0",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8",
+    "vue-tsc": "^2.2.0"
   }
 }

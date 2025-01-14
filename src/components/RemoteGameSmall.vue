@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Spinner from './Spinner.vue'
 import { useGameStore } from '~/stores/game'
+import Spinner from './Spinner.vue'
 
 const game = useGameStore()
 </script>

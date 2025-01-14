@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
 import type { DataConnection } from 'peerjs'
 import Peer from 'peerjs'
+import { defineStore } from 'pinia'
 
 export interface PeerMessage {
   message: string

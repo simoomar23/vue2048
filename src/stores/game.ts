@@ -1,6 +1,6 @@
+import type { Direction } from '~/composables/use2048'
 import { defineStore } from 'pinia'
 import { usePeerStore } from './peer'
-import type { Direction } from '~/composables/use2048'
 
 export interface GameMessage {
   message: string
