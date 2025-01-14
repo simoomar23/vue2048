@@ -9,7 +9,7 @@ Ce TP vise à mettre en place l'environnement de travail nécessaire à la réal
 Avoir accès au groupe EI8IT213 de l'organisation GitLab Bordeaux INP.
 => Mail envoyé sur adresse Bordeaux INP pour rejoindre ce groupe
 
-Etre répartis en groupe de 2 personnes pour les TP.
+Etre répartis en groupe de 2 ou 3 personnes pour les TP.
 
 ## Création du projet sur GitLab
 
@@ -20,7 +20,7 @@ Afin de pouvoir faire les labs, chaque groupe créera son projet sur GitLab à p
     2. Le namespace "bordeauxinp/ei8it213" doit être choisi dans l'URL du projet
     3. Les noms des membres du groupe de TP doivent être indiqués dans la description du projet
     4. Valider
-2. Choisir un numéro pour le groupe et aller remplir dans le [wiki d'organisation du Moodle de la séance 1](https://moodle.bordeaux-inp.fr/mod/wiki/view.php?id=124287) les informations sur les membres du groupe et l'URL du répertoire
+2. Choisir un numéro pour le groupe et aller remplir dans le [tableur d'organisation des groupes](https://docs.google.com/spreadsheets/d/1suMYWPB5DamO1rEdpY8SVMZQR-Q-Zm65HJn_dk-ypEE/edit?usp=sharing) les informations sur les membres du groupe et l'URL du répertoire.
 Cela permettra à l'enseignant de mettre l'autre membre du projet en Owner du projet sur GitLab.
 
 ## Installation des logiciels nécessaires
