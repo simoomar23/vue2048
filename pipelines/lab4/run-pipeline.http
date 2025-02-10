@@ -1,0 +1,26 @@
+### Create pipeline run
+POST https://gitlab.com/api/v4/projects/{{projectId}}/pipeline?ref=lab4
+PRIVATE-TOKEN: {{gitlabToken}}
+Content-Type: application/json
+
+{
+  "variables": [
+    {
+      "key": "Version",
+      "value": "1.2.0"
+    }
+  ]
+}
+
+
+### Trigger pipeline with a trigger token
+# https://docs.gitlab.com/ee/ci/triggers/index.html#create-a-pipeline-trigger-token
+POST https://gitlab.com/api/v4/projects/{{projectId}}/trigger/pipeline?token={{pipelineToken}}
+Content-Type: application/json
+
+{
+  "ref": "feature/test-trigger",
+  "variables": {
+    "Version": "1.2.0"
+  }
+}
