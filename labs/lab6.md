@@ -32,7 +32,6 @@
 - Appliquer le blue-green deployment en faisant basculer votre déploiement précédant de staging en production dans l'interface Vercel ([promote to production](https://vercel.com/docs/deployments/managing-deployments#promote-a-deployment-from-preview-to-production))
 
 > Lire la [documentation](https://vercel.com/docs/concepts/deployments/environments) de Vercel pour bien comprendre les notions d'environement preview et d'environnement de production.
-> Pour vérifier que 
 
 ## 3. Pour aller plus loin
 
