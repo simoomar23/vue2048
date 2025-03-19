@@ -10,7 +10,7 @@ Approfondir l'utilisation des pipelines d'intégration :
 
 ## Pré-requis
 - Créer une nouvelle branche git `lab5`
-- Partir du pipeline TP5.yml présent sur moodle
+- Partir du pipeline `0-init.yml` présent dans le dossier `pipelines/lab5`
 
 > Penser à bien tester chaque étape du Lab en exécutant le pipeline. N'oubliez pas de faire des commits sur votre branche avec un nom de message de commit explicite à chaque étape.
 
@@ -19,7 +19,7 @@ Approfondir l'utilisation des pipelines d'intégration :
 - Créer un fichier `quality-template.yml` dans le dossier `/pipelines/templates`. 
 - Y ajouter les deux jobs de check de typage statique et de lint.
 - Utiliser l'instruction `include` pour les ajouter dans le fichier `gitlab-ci.yml`.
-- Créer un [job caché](https://docs.gitlab.com/ee/ci/jobs/#hide-jobs) dans le template et l'utiliser dans les deux jobs pour qu'ils ne soient déclenchés que dans le cas d'une exécution manuelle (utiliser le mot clé `extends`).
+- Créer un [job caché](https://docs.gitlab.com/ci/jobs/#hide-a-job) dans le template et l'utiliser dans les deux jobs pour qu'ils ne soient déclenchés que dans le cas d'une exécution manuelle (utiliser le mot clé `extends`).
 
 ## 2. Implémentation d'un test
 - A la racine de votre répertoire, créer un dossier `tests`. Y ajouter un fichier `hello-world.spec.ts`.
