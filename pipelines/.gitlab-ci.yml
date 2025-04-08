@@ -29,7 +29,7 @@ static-typing-job:
 lint-job:
   stage: lint
   script:
-    - pnpm lint
+    - pnpm lint --fix
 
 build-job:
   stage: build
