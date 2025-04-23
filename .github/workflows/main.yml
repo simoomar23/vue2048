@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  # Permet de lancer le pipeline manuellement
+  workflow_dispatch:
 
 jobs:
   build:
