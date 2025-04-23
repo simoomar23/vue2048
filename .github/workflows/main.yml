@@ -1,11 +1,14 @@
-name: Build et Artifact
+name: lab9
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - run: |
           corepack enable
           corepack prepare pnpm@latest --activate
@@ -24,3 +28,26 @@ jobs:
         with:
           name: dist
           path: dist/
+  build-and-checks:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - run: pnpm install
+
+      - run: pnpm build
+
+      - run: pnpm type-check
+
+      - run: pnpm lint --fix
+
+      - run: pnpm test
