@@ -28,7 +28,7 @@ jobs:
         with:
           name: dist
           path: dist/
-  build-and-checks:
+  build-pull:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
