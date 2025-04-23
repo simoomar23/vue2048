@@ -5,12 +5,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  # Permet de lancer le pipeline manuellement
   workflow_dispatch:
 
 jobs:
   build:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,8 +29,9 @@ jobs:
         with:
           name: dist
           path: dist/
+
   build-pull:
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
