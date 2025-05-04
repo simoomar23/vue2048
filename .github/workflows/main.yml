@@ -1,39 +1,42 @@
 name: lab9
 
 on:
-  workflow_call:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  setup-build:
+  setup-pnpm:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+    
+  build:
+    needs: setup-pnpm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - run: pnpm build
+      - uses: actions/upload-artifact@v4
         with:
-          dest: ~/setup-pnpm
-          run_install: false
-          package_json_file: package.json
-          standalone: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build the application
-        run: pnpm build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifact
+          name: build-output
           path: dist/
-          retention-days: ${{ github.ref == 'refs/heads/main' && 7 || 1 }}
+
+  lint-and-test:
+    needs: setup-pnpm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - run: pnpm lint
+      - run: pnpm test
