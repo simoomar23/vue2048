@@ -11,6 +11,31 @@ on:
       - 'docs/**' 
   schedule:
     - cron: '0 8 * * 1' 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose environment (QA or PROD)'
+        required: true
+        type: choice
+        options:
+          - QA
+          - PROD
+      run-lint:
+        description: 'Do you want to run linting?'
+        required: false
+        type: boolean
+        default: true
+      run-tests:
+        description: 'Do you want to run tests?'
+        required: false
+        type: boolean
+        default: true
+      run-static-typing:
+        description: 'Do you want to run static typing?'
+        required: false
+        type: boolean
+        default: true
+
 
 jobs:    
   build:
