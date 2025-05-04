@@ -1,4 +1,4 @@
-name: setup-and-build
+name: lab9
 
 on:
   workflow_call:
