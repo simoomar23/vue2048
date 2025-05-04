@@ -3,20 +3,18 @@ name: lab9
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'docs/**'  
   pull_request:
     branches: [ main ]
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Choose environment (QA or PROD)'
-        required: true
-        type: choice
-        options:
-          - QA
-          - PROD
+    paths:
+      - 'docs/**' 
+  schedule:
+    - cron: '0 8 * * 1' 
+
 jobs:    
   build:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,9 +26,10 @@ jobs:
         with:
           name: build-output
           path: dist/
+          retention-days: ${{ github.ref == 'refs/heads/main' && 7 || 1 }}
 
   lint:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run-lint == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,8 +37,9 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm lint --fix
+
   test:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run-tests == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,8 +47,9 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm tests
+
   static-typing:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run-static-typing == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,10 +57,11 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm type-check
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -78,5 +80,3 @@ jobs:
         run: |
           pnpm add -g @azure/static-web-apps-cli
           swa deploy ./dist --env=production --deployment-token ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
-
-
