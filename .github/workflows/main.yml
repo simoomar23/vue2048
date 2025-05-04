@@ -97,11 +97,9 @@ jobs:
       - name: Deploy to QA
         if: ${{ github.event.inputs.environment == 'QA' }}
         run: |
-          pnpm add -g @azure/static-web-apps-cli
-          swa deploy ./dist --env=production --deployment-token ${{ secrets.QA_DEPLOYMENT_TOKEN }}
+            pnpx @azure/static-web-apps-cli deploy ./dist --app-name gitapp-vue2048-qa --env=production --deployment-token ${{ secrets.QA_DEPLOYMENT_TOKEN }}
 
       - name: Deploy to Production
         if: ${{ github.event.inputs.environment == 'PROD' }}
         run: |
-          pnpm add -g @azure/static-web-apps-cli
-          swa deploy ./dist --env=production --deployment-token ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
+            pnpx @azure/static-web-apps-cli deploy ./dist --app-name gitapp-vue2048-prod --env=production --deployment-token ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
