@@ -1,20 +1,14 @@
 name: lab9
 
 on:
-  workflow_call:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-jobs:
-  setup-pnpm:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup pnpm
-        uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - uses: pnpm/action-setup@v4
-      - run: pnpm install
-    
+jobs:    
   build:
-#    needs: setup-pnpm
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +22,7 @@ jobs:
           path: dist/
 
   lint:
-    needs: setup-pnpm
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
