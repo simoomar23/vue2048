@@ -6,6 +6,14 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose environment (QA or PROD)'
+        required: true
+        type: choice
+        options:
+          - QA
+          - PROD
 jobs:    
   build:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
@@ -70,4 +78,5 @@ jobs:
         run: |
           pnpm add -g @azure/static-web-apps-cli
           swa deploy ./dist --env=production --deployment-token ${{ secrets.PROD_DEPLOYMENT_TOKEN }}
+
 
