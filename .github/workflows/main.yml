@@ -1,55 +1,39 @@
-name: lab9
+name: setup-and-build
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
-  build:
-    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+  setup-build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 20
+          dest: ~/setup-pnpm
+          run_install: false
+          package_json_file: package.json
+          standalone: false
 
-      - run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-
-      - run: pnpm install
-      - run: pnpm build
-
-      - uses: actions/upload-artifact@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          name: dist
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build the application
+        run: pnpm build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
           path: dist/
-
-  build-pull:
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-
-      - run: pnpm install
-
-      - run: pnpm build
-
-      - run: pnpm type-check
-
-      - run: pnpm lint --fix
-
-      - run: pnpm test
+          retention-days: ${{ github.ref == 'refs/heads/main' && 7 || 1 }}
