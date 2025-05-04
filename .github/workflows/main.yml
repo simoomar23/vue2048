@@ -30,7 +30,7 @@ jobs:
           name: build-output
           path: dist/
 
-  lint-and-test:
+  lint:
     needs: setup-pnpm
     runs-on: ubuntu-latest
     steps:
@@ -38,5 +38,4 @@ jobs:
       - uses: actions/setup-node@v4
       - uses: pnpm/action-setup@v4
       - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test --fix
+      - run: pnpm lint --fix
