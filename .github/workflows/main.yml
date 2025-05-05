@@ -6,7 +6,7 @@ on:
     paths:
       - 'docs/**'  
  #   tags:
- #     - '*'  # déclenche pour tous les tags
+ #     - '*'  
   pull_request:
     branches: [ main ]
     paths:
