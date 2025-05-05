@@ -128,7 +128,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const url = '${{ steps.create-temp-env.outputs.app_url }}';
-            const comment = `🚀 Preview environment deployed at: [${url}](${url})`;
+            const comment = `Preview environment deployed at: [${url}](${url})`;
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -139,13 +139,14 @@ jobs:
 
   cleanup-temp-env:
     runs-on: ubuntu-latest
+    needs: deploy-temp-env 
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview-env')
     steps:
       - name: Azure login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+  
       - name: Delete temporary environment
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
@@ -153,7 +154,7 @@ jobs:
           RG_NAME="rg-vue2048-$ENV_NAME"
           
           az group delete -n $RG_NAME --yes --no-wait
-          
+  
       - name: Comment on PR about cleanup
         uses: actions/github-script@v6
         with:
@@ -163,7 +164,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🧹 Preview environment has been cleaned up and resources deleted.'
+              body: Preview environment has been cleaned up and resources deleted.'
             });
 
 
