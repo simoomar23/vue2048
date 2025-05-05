@@ -139,6 +139,7 @@ jobs:
 
   cleanup-temp-env:
     runs-on: ubuntu-latest
+    needs : deploy-temp-env
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview-env')
     steps:
       - name: Azure login
