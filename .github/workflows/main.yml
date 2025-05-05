@@ -5,6 +5,8 @@ on:
     branches: [ main ]
     paths:
       - 'docs/**'  
+    tags:
+      - '*'  # déclenche pour tous les tags
   pull_request:
     branches: [ main ]
     paths:
@@ -35,10 +37,6 @@ on:
         required: false
         type: boolean
         default: true
-  push:
-    tags:
-      - '*'
-
 jobs:    
   build:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push'
