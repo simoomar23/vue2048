@@ -82,6 +82,90 @@ jobs:
       - uses: pnpm/action-setup@v4
       - run: pnpm install
       - run: pnpm type-check
+  deploy-temp-env:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action != 'closed' && contains(github.event.pull_request.labels.*.name, 'preview-env')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+        
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Create temporary environment
+        id: create-temp-env
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          ENV_NAME="pr-$PR_NUMBER"
+          
+          SUBSCRIPTION_ID="${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+          TENANT_ID="${{ secrets.AZURE_TENANT_ID }}"
+          
+          az account set -s $SUBSCRIPTION_ID
+          
+          RG_NAME="rg-vue2048-$ENV_NAME"
+          az group create -n $RG_NAME -l "France Central" --tags PR=$PR_NUMBER Class=EI8IT213
+          
+          SWA_NAME="stapp-vue2048-$ENV_NAME"
+          az staticwebapp create -n $SWA_NAME -g $RG_NAME
+          
+          DEPLOYMENT_TOKEN=$(az staticwebapp secrets list -n $SWA_NAME --query "properties.apiKey" -o tsv)
+          
+          pnpx @azure/static-web-apps-cli deploy ./dist --app-name $SWA_NAME --env=production --deployment-token $DEPLOYMENT_TOKEN
+          
+          
+      
+      - name: Comment PR with environment URL
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const url = '${{ steps.create-temp-env.outputs.app_url }}';
+            const comment = `🚀 Preview environment deployed at: [${url}](${url})`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  cleanup-temp-env:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview-env')
+    steps:
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Delete temporary environment
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          ENV_NAME="pr-$PR_NUMBER"
+          RG_NAME="rg-vue2048-$ENV_NAME"
+          
+          az group delete -n $RG_NAME --yes --no-wait
+          
+      - name: Comment on PR about cleanup
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🧹 Preview environment has been cleaned up and resources deleted.'
+            });
+
 
   deploy:
     runs-on: ubuntu-latest
